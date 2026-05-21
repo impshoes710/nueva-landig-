@@ -51,6 +51,20 @@ Al enviar el formulario **Pagar en casa**, el sitio llama a `POST /api/create-or
 - Estado de pago **pendiente** (pago contra entrega)
 - Etiquetas: `landing-astro`, `pagar-en-casa`
 
+
+
+## Despliegue en Vercel
+
+En **Vercel → Project → Settings → Environment Variables**, añade:
+
+| Variable | Valor |
+|----------|--------|
+| `SHOPIFY_STORE_DOMAIN` | `ba6703.myshopify.com` |
+| `SHOPIFY_ADMIN_ACCESS_TOKEN` | tu token `shpat_...` |
+| `SHOPIFY_API_VERSION` | `2026-04` |
+
+Sin `SHOPIFY_ADMIN_ACCESS_TOKEN` el build pasa, pero los pedidos fallarán al enviarse.
+
 ## Nota
 
 Las imágenes y videos se cargan desde `lp.calzadoselite.co` y el CDN de Shopify.
