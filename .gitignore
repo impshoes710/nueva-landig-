@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # Shopify token (solo local)
 src/config/shopify.secrets.ts
+.vercel/
