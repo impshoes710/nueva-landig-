@@ -10,7 +10,7 @@ Copia del landing **Lokal Big Blanco** de [Calzados Elite](https://lp.calzadosel
 cp .env.example .env
 ```
 
-2. Configura tu tienda Shopify en `.env` (ver sección Shopify abajo).
+2. Las credenciales están en `src/config/shopify.ts`. Opcionalmente puedes sobrescribirlas con `.env`.
 
 3. Inicia el servidor:
 
