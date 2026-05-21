@@ -32,7 +32,7 @@ export interface CreateShopifyOrderResult {
 function getShopifyConfig() {
   const storeDomain = import.meta.env.SHOPIFY_STORE_DOMAIN;
   const accessToken = import.meta.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
-  const apiVersion = import.meta.env.SHOPIFY_API_VERSION || '2024-10';
+  const apiVersion = import.meta.env.SHOPIFY_API_VERSION || '2026-04';
 
   if (!storeDomain || !accessToken) {
     throw new Error(

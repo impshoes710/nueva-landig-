@@ -40,7 +40,7 @@ En hosting (Railway, Render, VPS, etc.) debes desplegar en **modo Node** (el pro
 ```env
 SHOPIFY_STORE_DOMAIN=tu-tienda.myshopify.com
 SHOPIFY_ADMIN_ACCESS_TOKEN=shpat_xxxxxxxx
-SHOPIFY_API_VERSION=2024-10
+SHOPIFY_API_VERSION=2026-04
 ```
 
 Al enviar el formulario **Pagar en casa**, el sitio llama a `POST /api/create-order`, que crea un pedido en Shopify con:
