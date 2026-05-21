@@ -1,0 +1,28 @@
+/**
+ * Refuerzo de botones negros por si quedan estilos inline del HTML exportado.
+ */
+:root {
+  --color-accent: #000000;
+  --color-accent-foreground: #ffffff;
+}
+
+.bg-accent,
+.hover\:bg-accent:hover {
+  background-color: #000000 !important;
+}
+
+.text-accent,
+.hover\:text-accent:hover {
+  color: #000000 !important;
+}
+
+.border-accent {
+  border-color: #000000 !important;
+}
+
+button.bg-accent,
+a.bg-accent,
+[type='submit'].bg-accent {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
