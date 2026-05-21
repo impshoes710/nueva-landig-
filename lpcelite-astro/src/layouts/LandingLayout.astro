@@ -1,0 +1,14 @@
+---
+import headContent from '../partials/head-content.html?raw';
+import '../styles/buttons-black.css';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Fragment set:html={headContent} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

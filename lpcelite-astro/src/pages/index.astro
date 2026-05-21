@@ -1,0 +1,8 @@
+---
+import LandingLayout from '../layouts/LandingLayout.astro';
+import bodyContent from '../partials/body-content.html?raw';
+---
+
+<LandingLayout>
+  <Fragment set:html={bodyContent} />
+</LandingLayout>
