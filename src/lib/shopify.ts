@@ -34,14 +34,13 @@ export interface CreateShopifyOrderResult {
 function getShopifyConfig() {
   const storeDomain =
     import.meta.env.SHOPIFY_STORE_DOMAIN || shopifyConfig.storeDomain;
-  const accessToken =
-    import.meta.env.SHOPIFY_ADMIN_ACCESS_TOKEN || shopifyConfig.adminAccessToken;
+  const accessToken = import.meta.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
   const apiVersion =
     import.meta.env.SHOPIFY_API_VERSION || shopifyConfig.apiVersion;
 
   if (!storeDomain || !accessToken) {
     throw new Error(
-      'Faltan variables de entorno SHOPIFY_STORE_DOMAIN y SHOPIFY_ADMIN_ACCESS_TOKEN'
+      'Falta SHOPIFY_ADMIN_ACCESS_TOKEN. En Vercel: Settings → Environment Variables.'
     );
   }
 
