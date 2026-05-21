@@ -14,6 +14,7 @@ interface OrderRequestBody {
   total?: string;
   size?: string;
   packageLabel?: string;
+  productName?: string;
 }
 
 function jsonResponse(body: object, status = 200) {
@@ -63,7 +64,8 @@ export const POST: APIRoute = async ({ request }) => {
     const unitPrice = normalizeLineItemPrice(total, quantity);
     const sizeLabel = body.size ? `Talla ${body.size}` : '';
     const packageLabel = body.packageLabel || '';
-    const lineTitle = ['Lokal Big | Blanco', sizeLabel, packageLabel]
+    const productName = body.productName || 'Cadense';
+    const lineTitle = [productName, sizeLabel, packageLabel]
       .filter(Boolean)
       .join(' — ');
 

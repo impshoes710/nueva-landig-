@@ -1,0 +1,10 @@
+---
+export const prerender = true;
+
+import LandingLayout from '../layouts/LandingLayout.astro';
+import bodyContent from '../partials/body-content-cadense.html?raw';
+---
+
+<LandingLayout head="cadense">
+  <Fragment set:html={bodyContent} />
+</LandingLayout>

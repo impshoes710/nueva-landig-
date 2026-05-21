@@ -1,4 +1,4 @@
-import { getSelectedPackage } from './landing-interactions.js';
+import { getSelectedPackage, getProductName } from './landing-interactions.js';
 
 const modal = document.getElementById('checkout-modal');
 const form = document.getElementById('checkout-form');
@@ -16,9 +16,11 @@ function getSizeSelect() {
 
 function getOrderContext() {
   const select = getSizeSelect();
-  const variantGid = select?.value || '';
-  const variantIdMatch = variantGid.match(/ProductVariant\/(\d+)/);
-  const variantId = variantIdMatch ? Number(variantIdMatch[1]) : 0;
+  const variantValue = select?.value || '';
+  const variantIdMatch = variantValue.match(/ProductVariant\/(\d+)/);
+  const variantId = variantIdMatch
+    ? Number(variantIdMatch[1])
+    : Number(variantValue) || 0;
   const size = select?.selectedOptions?.[0]?.textContent?.trim() || '';
   const pkg = getSelectedPackage();
   const total = totalEl?.textContent?.trim() || pkg.total;
@@ -29,6 +31,7 @@ function getOrderContext() {
     total,
     size,
     packageLabel: pkg.label,
+      productName: getProductName(),
   };
 }
 
@@ -140,6 +143,7 @@ function initCheckout() {
           total,
           size: orderContext.size,
           packageLabel: orderContext.packageLabel,
+          productName: orderContext.productName,
         }),
       });
 

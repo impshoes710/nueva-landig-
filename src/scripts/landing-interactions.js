@@ -1,7 +1,7 @@
 /**
  * Interactividad de la landing: selector 1 par / 2 pares y totales.
  */
-const PACKAGES = [
+const DEFAULT_PACKAGES = [
   {
     key: '1',
     label: '1 par',
@@ -21,6 +21,34 @@ const PACKAGES = [
     percent: '52',
   },
 ];
+
+function getPackagesFromDOM() {
+  const root = document.getElementById('landing-root');
+  if (!root?.dataset.package1Total) return DEFAULT_PACKAGES;
+
+  return [
+    {
+      key: '1',
+      label: '1 par',
+      quantity: 1,
+      total: root.dataset.package1Total || '$130,000',
+      compare: root.dataset.package1Compare || '$200,000',
+      discount: root.dataset.package1Discount || '$70,000',
+      percent: root.dataset.package1Percent || '35',
+    },
+    {
+      key: '2',
+      label: '2 pares',
+      quantity: 2,
+      total: root.dataset.package2Total || '$240,000',
+      compare: root.dataset.package2Compare || '$400,000',
+      discount: root.dataset.package2Discount || '$160,000',
+      percent: root.dataset.package2Percent || '40',
+    },
+  ];
+}
+
+let PACKAGES = getPackagesFromDOM();
 
 const CHECK_ICON = `<div class="bg-accent flex h-5 w-5 items-center justify-center rounded-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-3 w-3 text-white" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></div>`;
 
@@ -90,6 +118,7 @@ function updateCartSummary(pkg) {
 }
 
 function initPackagePicker() {
+  PACKAGES = getPackagesFromDOM();
   const cards = getPackageCards();
   if (!cards.length) return;
 
@@ -115,6 +144,10 @@ function initPackagePicker() {
 
 export function getSelectedPackage() {
   return PACKAGES[selectedPackageIndex] || PACKAGES[0];
+}
+
+export function getProductName() {
+  return document.getElementById('landing-root')?.dataset.productName || 'Cadense';
 }
 
 if (document.readyState === 'loading') {

@@ -1,0 +1,187 @@
+{
+  "variants": [
+    {
+      "id": 52778787766556,
+      "title": "Blanco / 37",
+      "color": "Blanco",
+      "size": "37"
+    },
+    {
+      "id": 52778787799324,
+      "title": "Blanco / 38",
+      "color": "Blanco",
+      "size": "38"
+    },
+    {
+      "id": 52778787832092,
+      "title": "Blanco / 39",
+      "color": "Blanco",
+      "size": "39"
+    },
+    {
+      "id": 52778787864860,
+      "title": "Blanco / 40",
+      "color": "Blanco",
+      "size": "40"
+    },
+    {
+      "id": 52778787897628,
+      "title": "Blanco / 41",
+      "color": "Blanco",
+      "size": "41"
+    },
+    {
+      "id": 52778787930396,
+      "title": "Blanco / 42",
+      "color": "Blanco",
+      "size": "42"
+    },
+    {
+      "id": 52778787963164,
+      "title": "Blanco / 43",
+      "color": "Blanco",
+      "size": "43"
+    },
+    {
+      "id": 52778788454684,
+      "title": "Gris / 37",
+      "color": "Gris",
+      "size": "37"
+    },
+    {
+      "id": 52778788487452,
+      "title": "Gris / 38",
+      "color": "Gris",
+      "size": "38"
+    },
+    {
+      "id": 52778788520220,
+      "title": "Gris / 39",
+      "color": "Gris",
+      "size": "39"
+    },
+    {
+      "id": 52778788552988,
+      "title": "Gris / 40",
+      "color": "Gris",
+      "size": "40"
+    },
+    {
+      "id": 52778788585756,
+      "title": "Gris / 41",
+      "color": "Gris",
+      "size": "41"
+    },
+    {
+      "id": 52778788618524,
+      "title": "Gris / 42",
+      "color": "Gris",
+      "size": "42"
+    },
+    {
+      "id": 52778788651292,
+      "title": "Gris / 43",
+      "color": "Gris",
+      "size": "43"
+    },
+    {
+      "id": 52778787995932,
+      "title": "Negro / 37",
+      "color": "Negro",
+      "size": "37"
+    },
+    {
+      "id": 52778788028700,
+      "title": "Negro / 38",
+      "color": "Negro",
+      "size": "38"
+    },
+    {
+      "id": 52778788061468,
+      "title": "Negro / 39",
+      "color": "Negro",
+      "size": "39"
+    },
+    {
+      "id": 52778788094236,
+      "title": "Negro / 40",
+      "color": "Negro",
+      "size": "40"
+    },
+    {
+      "id": 52778788127004,
+      "title": "Negro / 41",
+      "color": "Negro",
+      "size": "41"
+    },
+    {
+      "id": 52778788159772,
+      "title": "Negro / 42",
+      "color": "Negro",
+      "size": "42"
+    },
+    {
+      "id": 52778788192540,
+      "title": "Negro / 43",
+      "color": "Negro",
+      "size": "43"
+    },
+    {
+      "id": 52778788225308,
+      "title": "Azul / 37",
+      "color": "Azul",
+      "size": "37"
+    },
+    {
+      "id": 52778788258076,
+      "title": "Azul / 38",
+      "color": "Azul",
+      "size": "38"
+    },
+    {
+      "id": 52778788290844,
+      "title": "Azul / 39",
+      "color": "Azul",
+      "size": "39"
+    },
+    {
+      "id": 52778788323612,
+      "title": "Azul / 40",
+      "color": "Azul",
+      "size": "40"
+    },
+    {
+      "id": 52778788356380,
+      "title": "Azul / 41",
+      "color": "Azul",
+      "size": "41"
+    },
+    {
+      "id": 52778788389148,
+      "title": "Azul / 42",
+      "color": "Azul",
+      "size": "42"
+    },
+    {
+      "id": 52778788421916,
+      "title": "Azul / 43",
+      "color": "Azul",
+      "size": "43"
+    }
+  ],
+  "colors": [
+    "Azul",
+    "Blanco",
+    "Gris",
+    "Negro"
+  ],
+  "sizes": [
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43"
+  ]
+}
