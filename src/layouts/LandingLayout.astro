@@ -1,24 +1,110 @@
 ---
-import headContent from '../partials/head-content.html?raw';
 import CheckoutModal from '../components/CheckoutModal.astro';
-import '../styles/buttons-black.css';
-import { colors, productName, discountPercent } from '../config/product-images.js';
+
+const { product } = Astro.props;
+const accentColor = product?.accentColor || '#000000';
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
-    <Fragment set:html={headContent} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="color-scheme" content="light only" />
+    <title>{product?.sneakerName || 'Calzados Elite'} | CalzadosElite</title>
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.shopify.com" />
+    <link rel="icon" type="image/png" href="https://lp.calzadoselite.co/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="https://lp.calzadoselite.co/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="https://lp.calzadoselite.co/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://lp.calzadoselite.co/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="https://lp.calzadoselite.co/favicon/site.webmanifest" />
+    <style define:vars={{ accentColor }}>
+      :root {
+        --color-accent: var(--accentColor);
+        --color-accent-foreground: #ffffff;
+        --color-foreground: #1a1a1a;
+        --color-background: #ffffff;
+        --color-muted: #f5f5f5;
+        --color-muted-border: #e5e5e5;
+        --color-muted-foreground: #6b7280;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      .hidden { display: none; }
+      body {
+        font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--color-foreground);
+        background: var(--color-background);
+        -webkit-font-smoothing: antialiased;
+      }
+      .bg-accent { background-color: var(--color-accent) !important; }
+      .text-accent { color: var(--color-accent) !important; }
+      .text-accent-foreground { color: var(--color-accent-foreground) !important; }
+      .border-accent { border-color: var(--color-accent) !important; }
+      .bg-accent\/15 { background-color: color-mix(in srgb, var(--color-accent) 15%, transparent); }
+      .text-foreground { color: var(--color-foreground); }
+      .bg-background { background-color: var(--color-background); }
+      .bg-muted { background-color: var(--color-muted); }
+      .border-muted-border { border-color: var(--color-muted-border); }
+      .text-muted-foreground { color: var(--color-muted-foreground); }
+      .bg-foreground\/3 { background-color: rgba(26,26,26,0.03); }
+      .border-foreground\/30 { border-color: rgba(26,26,26,0.3); }
+      .gutter-sm { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .gutter-md { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .font-title { font-family: 'Montserrat', 'Instrument Sans', sans-serif; }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Swiper minimal */
+      .swiper { position: relative; overflow: hidden; }
+      .swiper-wrapper { display: flex; transition: transform 0.3s; }
+      .swiper-slide { flex-shrink: 0; width: 100%; }
+      .swiper-pagination { text-align: center; padding: 10px 0; }
+      .swiper-pagination-bullet {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--color-muted-foreground); opacity: 0.3;
+        display: inline-block; margin: 0 4px; cursor: pointer;
+      }
+      .swiper-pagination-bullet-active { opacity: 1; background: var(--color-accent); }
+
+      /* Animation */
+      @keyframes wooble {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+      .animate-wooble { animation: wooble 2s infinite; }
+
+      /* Responsive helpers */
+      @media (min-width: 768px) {
+        .md\:hidden, .md\:hidden\! { display: none !important; }
+        .md\:grid { display: grid !important; }
+        .md\:block { display: block !important; }
+        .md\:flex { display: flex !important; }
+        .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .md\:fixed { position: fixed; }
+        .md\:sticky { position: sticky; }
+        .md\:h-screen { height: 100vh; }
+        .md\:overflow-auto { overflow: auto; }
+        .md\:object-contain { object-fit: contain; }
+        .md\:top-\[40px\] { top: 40px; }
+        .md\:h-\[calc\(100vh-40px\)\] { height: calc(100vh - 40px); }
+        .md\:pb-5 { padding-bottom: 1.25rem; }
+        .md\:border-t-0 { border-top-width: 0; }
+        .md\:border-l { border-left-width: 1px; border-left-style: solid; }
+        .md\:grid-cols-\[1fr_420px\] { grid-template-columns: 1fr 420px; }
+      }
+      @media (min-width: 1024px) {
+        .lg\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+      }
+    </style>
   </head>
   <body>
-    <script is:inline define:vars={{ colors, productName, discountPercent }}>
-      window.__PRODUCT_COLORS__ = colors;
-      window.__PRODUCT_NAME__ = productName;
-      window.__PRODUCT_DISCOUNT__ = discountPercent;
-    </script>
     <slot />
     <CheckoutModal />
     <script src="../scripts/color-selector.js"></script>
+    <script src="../scripts/landing-interactions.js"></script>
     <script src="../scripts/checkout-modal.js"></script>
+    <script src="../scripts/swiper-init.js"></script>
+    <script src="../scripts/video-autoplay.js"></script>
   </body>
 </html>

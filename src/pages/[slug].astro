@@ -1,12 +1,19 @@
 ---
-export const prerender = true;
-
 import LandingLayout from '../layouts/LandingLayout.astro';
 import ProductLanding from '../components/ProductLanding.astro';
-import { products } from '../config/products.js';
+import { products, getProduct } from '../config/products.js';
 import { site } from '../config/site.js';
 
-const product = products[0];
+export const prerender = true;
+
+export function getStaticPaths() {
+  return products.map((p) => ({
+    params: { slug: p.slug },
+    props: { product: p },
+  }));
+}
+
+const { product } = Astro.props;
 ---
 
 <LandingLayout product={product}>

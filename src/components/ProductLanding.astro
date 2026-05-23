@@ -1,0 +1,305 @@
+---
+const { product, site } = Astro.props;
+const defaultColor = product.colors[0];
+const defaultImages = defaultColor?.images || [];
+const defaultPkg = product.packages[0];
+---
+
+<main style={`--color-accent:${product.accentColor}`}>
+<div class="min-h-dvh text-foreground bg-background">
+
+<!-- HEADER BANNER -->
+<header class="sticky top-0 z-20 w-full">
+  <div class="flex items-center justify-center gap-3 bg-muted border-b border-muted-border py-1.5 text-sm font-bold">
+    <span>{site.headerBanner}</span>
+    {site.showCountdown && <span id="countdown-timer">00h 00m 00s</span>}
+  </div>
+</header>
+
+<!-- MOBILE LAYOUT (single column) -->
+<div class="md:hidden">
+
+  <!-- TITLE + FEATURES -->
+  <div class="px-5 pt-5 pb-2">
+    <div class="flex gap-2 items-center mb-1">
+      <h1 class="font-title font-extrabold text-xl">{product.sneakerName}</h1>
+      <div class="text-nowrap bg-accent text-white px-2 rounded-md font-semibold text-sm">{product.badgeText}</div>
+    </div>
+    <div class="flex items-center gap-3">
+      {product.features.map((f) => (
+        <div class="flex items-center gap-1 text-sm font-semibold">
+          <span>{f.icon}</span><span>{f.text}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- COLOR SELECTOR -->
+  <div id="color-selector" class="flex gap-3 px-5 mt-2 mb-4 overflow-x-auto"></div>
+
+  <!-- IMAGE CAROUSEL -->
+  <div class="product-swiper-mobile overflow-hidden px-5">
+    <div class="swiper-wrapper flex">
+      {defaultImages.map((img, i) => (
+        <div class="swiper-slide flex-shrink-0 w-full">
+          <img
+            loading={i === 0 ? 'eager' : 'lazy'}
+            alt={`${product.sneakerName} - ${defaultColor.name} foto ${i + 1}`}
+            src={img}
+            class="w-full aspect-square object-cover rounded-lg"
+          />
+        </div>
+      ))}
+    </div>
+    <div class="swiper-pagination mt-3"></div>
+  </div>
+
+  <!-- CTA BUTTON (mobile) -->
+  <div class="px-5 pt-5 pb-3">
+    <button class="w-full cursor-pointer rounded-lg px-5 py-4 font-bold text-lg bg-accent text-accent-foreground animate-wooble flex items-center justify-center gap-2">
+      {product.ctaText}
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="h-5 w-5"><path d="M12.5812 2.68627C12.2335 2.43791 11.7664 2.43791 11.4187 2.68627L1.9187 9.47198L3.08118 11.0994L11.9999 4.74517L20.9187 11.0994L22.0812 9.47198L12.5812 2.68627ZM5 10.4872L12 5.49939L19 10.4872V20.0001H15V14.0001H9V20.0001H5V10.4872Z"></path></svg>
+    </button>
+  </div>
+
+  <!-- SIZE SELECTOR (mobile) -->
+  <div class="px-5 pb-4">
+    <label for="size-select-mobile" class="block text-sm font-semibold mb-2">Talla</label>
+    <select id="size-select-mobile" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-base font-medium bg-white">
+      <option value="" disabled selected>Selecciona tu talla</option>
+      {product.variants.map((v) => (
+        <option value={v.variantId}>{v.size}</option>
+      ))}
+    </select>
+  </div>
+
+  <!-- PACKAGE PICKER (mobile) -->
+  <div class="px-5 pb-4 space-y-3">
+    <p class="text-sm font-semibold">Selecciona tu paquete</p>
+    {product.packages.map((pkg, i) => (
+      <div
+        class:list={[
+          'cursor-pointer overflow-hidden rounded-lg border-2 p-4 transition-all',
+          i === 0 ? 'border-accent bg-accent/15' : 'border-foreground/30 bg-foreground/3'
+        ]}
+        data-package-index={i}
+      >
+        <div class="flex items-center gap-4">
+          <div>
+            {i === 0 ? (
+              <div class="bg-accent flex h-5 w-5 items-center justify-center rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+              </div>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gray-400"><circle cx="12" cy="12" r="10"></circle></svg>
+            )}
+          </div>
+          <div class="flex-1">
+            <p class="font-semibold">{pkg.label}</p>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="font-bold text-lg">{pkg.price}</span>
+              <span class="text-sm line-through text-muted-foreground">{pkg.comparePrice}</span>
+            </div>
+          </div>
+          <div class="bg-accent text-white px-2 py-0.5 rounded-md text-sm font-bold">
+            {pkg.discountPercent}%
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- CART SUMMARY (mobile) -->
+  <div class="px-5 pb-5">
+    <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+      <div class="flex items-center justify-between text-sm">
+        <span>Subtotal</span>
+        <span class="font-semibold" id="cart-subtotal">{defaultPkg.comparePrice}</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span>Descuento</span>
+        <span class="font-semibold text-green-600" id="cart-discount">-{defaultPkg.discount}</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span>Envío</span>
+        <span class="font-semibold text-green-600">Gratis</span>
+      </div>
+      <div class="border-t pt-2 flex items-center justify-between">
+        <span class="text-lg font-bold">Total</span>
+        <span class="text-lg font-bold" id="cart-total">{defaultPkg.price}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFITS -->
+  <div class="grid grid-cols-3 gap-3 px-5 pb-6">
+    {site.benefits.map((b) => (
+      <div class="flex flex-col items-center text-center gap-1">
+        <span class="text-2xl">{b.icon}</span>
+        <p class="text-xs font-bold leading-tight">{b.title}</p>
+        <p class="text-[10px] text-muted-foreground leading-tight">{b.subtitle}</p>
+      </div>
+    ))}
+  </div>
+
+  <!-- VIDEOS -->
+  {product.videos.length > 0 && (
+    <div class="px-5 pb-6">
+      <h2 class="font-bold text-lg mb-3">Los más virales de TikTok</h2>
+      <div class="grid grid-cols-2 gap-3">
+        {product.videos.map((v) => (
+          <div class="relative rounded-xl overflow-hidden aspect-[9/16] bg-gray-100">
+            <video src={v.url} poster={v.poster} class="w-full h-full object-cover" playsinline muted loop preload="none" data-autoplay-on-visible />
+            <div class="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-0.5 rounded-full">👁 {v.views}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- REVIEWS -->
+  {site.reviews.length > 0 && (
+    <div class="px-5 pb-8">
+      <h2 class="font-bold text-lg mb-3">Reseñas de clientes</h2>
+      <div class="grid grid-cols-2 gap-3">
+        {site.reviews.slice(0, 4).map((img, i) => (
+          <img src={img} alt={`Reseña ${i + 1}`} class="rounded-lg w-full" loading="lazy" />
+        ))}
+      </div>
+    </div>
+  )}
+
+</div>
+
+<!-- DESKTOP LAYOUT (two columns) -->
+<div class="hidden md:grid" style="grid-template-columns: 1fr 420px;">
+
+  <!-- Left: Images -->
+  <div class="h-[calc(100vh-40px)] overflow-auto sticky top-[40px] p-5">
+    <div class="grid grid-cols-2 gap-3 product-grid-desktop">
+      {defaultImages.map((img, i) => (
+        <img
+          loading={i === 0 ? 'eager' : 'lazy'}
+          alt={`${product.sneakerName} - ${defaultColor.name} foto ${i + 1}`}
+          src={img}
+          class="w-full aspect-square object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Right: Product details -->
+  <div class="h-[calc(100vh-40px)] overflow-auto sticky top-[40px] border-l border-muted-border p-5 space-y-5">
+    <!-- Title -->
+    <div>
+      <div class="flex gap-2 items-center mb-1">
+        <h1 class="font-title font-extrabold text-2xl">{product.sneakerName}</h1>
+        <div class="text-nowrap bg-accent text-white px-2 rounded-md font-semibold">{product.badgeText}</div>
+      </div>
+      <div class="flex items-center gap-3 mt-1">
+        {product.features.map((f) => (
+          <div class="flex items-center gap-1 text-sm font-semibold">
+            <span>{f.icon}</span><span>{f.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Desktop Color Selector -->
+    <div id="color-selector-desktop" class="flex gap-3 overflow-x-auto"></div>
+
+    <!-- Size -->
+    <div>
+      <label for="size-select-desktop" class="block text-sm font-semibold mb-2">Talla</label>
+      <select id="size-select-desktop" class="w-full border border-gray-300 rounded-lg px-4 py-3 text-base font-medium bg-white">
+        <option value="" disabled selected>Selecciona tu talla</option>
+        {product.variants.map((v) => (
+          <option value={v.variantId}>{v.size}</option>
+        ))}
+      </select>
+    </div>
+
+    <!-- Packages -->
+    <div class="space-y-3">
+      <p class="text-sm font-semibold">Selecciona tu paquete</p>
+      {product.packages.map((pkg, i) => (
+        <div
+          class:list={[
+            'cursor-pointer overflow-hidden rounded-lg border-2 p-4 transition-all',
+            i === 0 ? 'border-accent bg-accent/15' : 'border-foreground/30 bg-foreground/3'
+          ]}
+          data-package-index={i}
+        >
+          <div class="flex items-center gap-4">
+            <div>
+              {i === 0 ? (
+                <div class="bg-accent flex h-5 w-5 items-center justify-center rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                </div>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-gray-400"><circle cx="12" cy="12" r="10"></circle></svg>
+              )}
+            </div>
+            <div class="flex-1">
+              <p class="font-semibold">{pkg.label}</p>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span class="font-bold text-lg">{pkg.price}</span>
+                <span class="text-sm line-through text-muted-foreground">{pkg.comparePrice}</span>
+              </div>
+            </div>
+            <div class="bg-accent text-white px-2 py-0.5 rounded-md text-sm font-bold">
+              {pkg.discountPercent}%
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+      <div class="flex items-center justify-between text-sm">
+        <span>Subtotal</span>
+        <span class="font-semibold" id="cart-subtotal-desktop">{defaultPkg.comparePrice}</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span>Descuento</span>
+        <span class="font-semibold text-green-600" id="cart-discount-desktop">-{defaultPkg.discount}</span>
+      </div>
+      <div class="flex items-center justify-between text-sm">
+        <span>Envío</span>
+        <span class="font-semibold text-green-600">Gratis</span>
+      </div>
+      <div class="border-t pt-2 flex items-center justify-between">
+        <span class="text-lg font-bold">Total</span>
+        <span class="text-lg font-bold" id="cart-total-desktop">{defaultPkg.price}</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <button class="w-full cursor-pointer rounded-lg px-5 py-4 font-bold text-lg bg-accent text-accent-foreground animate-wooble flex items-center justify-center gap-2">
+      {product.ctaText}
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="h-5 w-5"><path d="M12.5812 2.68627C12.2335 2.43791 11.7664 2.43791 11.4187 2.68627L1.9187 9.47198L3.08118 11.0994L11.9999 4.74517L20.9187 11.0994L22.0812 9.47198L12.5812 2.68627ZM5 10.4872L12 5.49939L19 10.4872V20.0001H15V14.0001H9V20.0001H5V10.4872Z"></path></svg>
+    </button>
+
+    <!-- Benefits -->
+    <div class="grid grid-cols-3 gap-3 pt-2">
+      {site.benefits.map((b) => (
+        <div class="flex flex-col items-center text-center gap-1">
+          <span class="text-2xl">{b.icon}</span>
+          <p class="text-xs font-bold leading-tight">{b.title}</p>
+          <p class="text-[10px] text-muted-foreground leading-tight">{b.subtitle}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</div>
+
+</div>
+</main>
+
+<!-- Pass product data to client scripts -->
+<script define:vars={{ productColors: product.colors, productPackages: product.packages }}>
+  window.__PRODUCT_COLORS__ = productColors;
+  window.__PRODUCT_PACKAGES__ = productPackages;
+</script>
