@@ -1,0 +1,29 @@
+---
+import type { ProductData } from '../../config/product-data';
+import { formatPrecio } from '../../lib/format';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+const rel = data.relacionados;
+if (!rel?.productos?.length) return null;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-14 lg:px-6">
+  <h2 class="text-xl font-bold">{rel.titulo}</h2>
+  <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
+    {
+      rel.productos.map((p) => (
+        <a href={p.url} class="premium-glass block rounded-2xl p-3 transition hover:-translate-y-1">
+          <img src={p.imagen} alt={p.nombre} class="aspect-square w-full object-contain" loading="lazy" />
+          <h3 class="mt-2 text-sm font-semibold">{p.nombre}</h3>
+          <p class="text-xs text-[var(--premium-muted)] line-through">
+            {formatPrecio(p.precioAnterior, data.moneda)}
+          </p>
+          <p class="font-bold text-[var(--premium-accent)]">{formatPrecio(p.precio, data.moneda)}</p>
+        </a>
+      ))
+    }
+  </div>
+</section>

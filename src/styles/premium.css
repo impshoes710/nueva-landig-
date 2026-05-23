@@ -1,0 +1,64 @@
+/* Animaciones y utilidades premium — complementa Tailwind */
+
+@keyframes premium-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes premium-pulse-soft {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--premium-accent) 40%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+
+.premium-animate-in {
+  animation: premium-fade-up 0.6s ease-out both;
+}
+
+.premium-glass {
+  background: color-mix(in srgb, var(--premium-surface) 75%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, white 8%, transparent);
+}
+
+.premium-cta-pulse {
+  animation: premium-pulse-soft 2.5s ease-in-out infinite;
+}
+
+#gallery-zoom-wrap.is-zoomed #gallery-main-img {
+  transform: scale(1.75);
+  cursor: zoom-out;
+}
+
+#gallery-main-img {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: zoom-in;
+}
+
+.premium-sticky-bar {
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-sticky-bar.is-visible {
+  transform: translateY(0);
+}
+
+/* Scrollbar testimonios */
+.premium-scroll-x {
+  scrollbar-width: none;
+}
+.premium-scroll-x::-webkit-scrollbar {
+  display: none;
+}

@@ -50,7 +50,7 @@ function getPackagesFromDOM() {
 
 let PACKAGES = getPackagesFromDOM();
 
-const CHECK_ICON = `<div class="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--landing-accent)]"><svg class="h-3 w-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>`;
+const CHECK_ICON = `<div class="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--premium-accent)]"><svg class="h-3 w-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>`;
 const CIRCLE_ICON = `<svg class="h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>`;
 
 let selectedPackageIndex = 0;
@@ -60,7 +60,7 @@ function getPackageCards() {
 }
 
 function getIconContainer(card) {
-  return card.querySelector('.flex.items-center.gap-5')?.firstElementChild;
+  return card.querySelector('.package-icon') || card.querySelector('.flex.items-center.gap-4')?.firstElementChild || card.querySelector('.flex.items-center.gap-5')?.firstElementChild;
 }
 
 function markPackageSelected(index) {
@@ -75,9 +75,13 @@ function markPackageSelected(index) {
     const selected = i === index;
 
     card.classList.toggle('border-[var(--landing-accent)]', selected);
+    card.classList.toggle('border-[var(--premium-accent)]', selected);
     card.classList.toggle('bg-[var(--landing-accent)]/15', selected);
+    card.classList.toggle('bg-[var(--premium-accent)]/10', selected);
     card.classList.toggle('border-neutral-300', !selected);
+    card.classList.toggle('border-white/10', !selected);
     card.classList.toggle('bg-neutral-50', !selected);
+    card.classList.toggle('bg-[var(--premium-surface)]', !selected);
 
     if (iconSlot) {
       iconSlot.innerHTML = selected ? CHECK_ICON : CIRCLE_ICON;

@@ -1,0 +1,39 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+const faq = data.faq;
+const wa = data.whatsapp;
+---
+
+<section class="mx-auto max-w-2xl px-4 py-14 lg:px-6" id="faq">
+  <h2 class="text-center text-2xl font-bold">{faq.titulo}</h2>
+  <div class="mt-8 space-y-3">
+    {
+      faq.items.map((item) => (
+        <details class="premium-glass group rounded-xl">
+          <summary class="cursor-pointer list-none px-5 py-4 font-semibold marker:content-none [&::-webkit-details-marker]:hidden">
+            <span class="flex items-center justify-between gap-2">
+              {item.pregunta}
+              <span class="text-[var(--premium-accent)] transition group-open:rotate-45">+</span>
+            </span>
+          </summary>
+          <p class="border-t border-white/5 px-5 pb-4 pt-0 text-sm text-[var(--premium-muted)]">
+            {item.respuesta}
+          </p>
+        </details>
+      ))
+    }
+  </div>
+  <a
+    href={`https://wa.me/${wa.numero}?text=${encodeURIComponent(wa.mensaje)}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-green-600 py-4 font-bold text-white transition hover:bg-green-500"
+  >
+    {wa.textoBoton}
+  </a>
+</section>

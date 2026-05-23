@@ -61,13 +61,19 @@ function closeModal() {
   document.body.classList.remove('checkout-modal-open');
 }
 
-function isPayAtHomeButton(button) {
-  return /pagar\s+en\s+casa/i.test(button.textContent || '');
+function isCheckoutButton(button) {
+  if (button.dataset.checkoutOpen !== undefined) return true;
+  const text = button.textContent || '';
+  return /pagar\s+en\s+casa|comprar\s+ahora/i.test(text);
 }
 
 function initPayButtons() {
+  document.querySelectorAll('[data-checkout-open]').forEach((button) => {
+    button.type = 'button';
+    button.dataset.openCheckout = 'true';
+  });
   document.querySelectorAll('button').forEach((button) => {
-    if (!isPayAtHomeButton(button)) return;
+    if (!isCheckoutButton(button)) return;
     button.type = 'button';
     button.dataset.openCheckout = 'true';
   });
@@ -83,7 +89,7 @@ function initCheckout() {
     if (!(target instanceof Element)) return;
 
     const button = target.closest('button[data-open-checkout], button');
-    if (!button || !isPayAtHomeButton(button)) return;
+    if (!button || !isCheckoutButton(button)) return;
 
     event.preventDefault();
     event.stopPropagation();

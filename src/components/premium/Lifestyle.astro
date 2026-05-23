@@ -1,0 +1,38 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+const ls = data.lifestyle;
+---
+
+<section class="relative overflow-hidden py-16" id="lifestyle">
+  <div class="absolute inset-0">
+    <img
+      src={ls.imagen}
+      alt=""
+      class="h-full w-full object-cover opacity-40"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-[var(--premium-bg)] via-[var(--premium-bg)]/80 to-transparent" />
+  </div>
+  <div class="relative mx-auto max-w-6xl px-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12 lg:px-6">
+    <div>
+      <span class="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider">
+        {ls.badge}
+      </span>
+      <h2 class="mt-4 text-3xl font-bold leading-tight md:text-4xl">{ls.titulo}</h2>
+      <p class="mt-4 text-lg text-[var(--premium-muted)]">{ls.texto}</p>
+    </div>
+    <div class="mt-8 lg:mt-0">
+      <img
+        src={ls.imagenSecundaria}
+        alt={data.nombre}
+        class="rounded-3xl shadow-2xl ring-1 ring-white/10"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>

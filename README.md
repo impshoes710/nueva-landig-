@@ -1,40 +1,45 @@
-# Landing Lokal Big (editable)
+# Plantilla landing premium — calzado / streetwear
 
-Copia editable del landing [Lokal Big Blanco](https://lp.calzadoselite.co/oferta/lokal-big-blanco), en [Astro](https://astro.build/), con panel de administración para cambiar fotos, videos, textos, colores, precios y promociones.
+Landing de alta conversión para **Meta Ads** y **TikTok Ads**, optimizada para móvil y Shopify.
 
-## Desarrollo
+## Editar todo desde un solo archivo
+
+**`src/config/product-data.ts`** — objeto `productData` con:
+
+| Sección | Qué editas |
+|---------|------------|
+| `meta` | SEO, título, OG image |
+| `tema` | Colores (acento, fondo, texto) |
+| `nombre`, `subtitulo`, `precio`, `precioAnterior` | Hero y precios |
+| `imagenes`, `videos`, `videoPrincipal` | Galería |
+| `colores`, `tallas` | Selectores |
+| `cta` | Textos de botones |
+| `beneficios` | Cards con íconos |
+| `lifestyle` | Sección streetwear |
+| `caracteristicas`, `detallesProducto` | Stats del producto |
+| `urgencia`, `paquetes` | Contador, stock, ofertas |
+| `tiktok` | Videos virales |
+| `garantias` | Confianza + videos |
+| `testimonios` | Reviews con estrellas |
+| `faq`, `whatsapp` | FAQ y botón flotante |
+| `ctaFinal`, `footer` | Cierre y pie |
+
+## Comandos
 
 ```bash
 npm install
-npm run dev
+npm run dev      # http://localhost:4321
+npm run build
+npm run preview
 ```
 
-- **Landing**: http://localhost:4321/
-- **Editor**: http://localhost:4321/admin
+- **Landing**: `/`
+- **Editor JSON (legacy)**: `/admin`
+- **Guía plantilla**: `/plantilla/README.md`
 
-## Editar contenido
+## Shopify
 
-1. Abre **/admin** en el navegador.
-2. Cambia textos, colores (selector), URLs de imágenes/videos, precios de paquetes, FAQ, etc.
-3. Pulsa **Guardar cambios** (en local escribe `src/data/lokal-big-blanco.json`).
-4. Recarga la landing principal.
-
-También puedes editar directamente el archivo `src/data/lokal-big-blanco.json` o usar **Descargar JSON** y subirlo al repositorio.
-
-### Producción (Vercel)
-
-El sistema de archivos en Vercel es de solo lectura. Para guardar desde `/admin` en producción:
-
-1. Define la variable `LANDING_ADMIN_SECRET` en Vercel.
-2. En el editor, abre la consola del navegador y ejecuta:  
-   `localStorage.setItem('landing-admin-secret', 'tu-clave')`
-3. Guarda desde el panel.
-
-Si no usas el secreto, descarga el JSON desde el admin y reemplaza `src/data/lokal-big-blanco.json` antes de desplegar.
-
-## Shopify — pedidos
-
-Al pulsar **Pagar en casa**, se llama a `POST /api/create-order`. Configura en `.env`:
+Pedidos con **Pagar en casa** → `POST /api/create-order`. Variables en `.env`:
 
 ```env
 SHOPIFY_STORE_DOMAIN=ba6703.myshopify.com
@@ -42,13 +47,17 @@ SHOPIFY_ADMIN_ACCESS_TOKEN=shpat_xxxxxxxx
 SHOPIFY_API_VERSION=2026-04
 ```
 
-## Otras rutas
+Opcional: `shopifyVariantes: { "40": 50600933654818 }` en `product-data.ts` para mapear tallas a variantes.
 
-- `/cadense` — versión anterior (HTML estático JR_CADENSE)
+## Duplicar para otro producto
 
-## Build
+1. Copia `src/config/product-data.ts`
+2. Cambia valores
+3. (Opcional) Nueva ruta Astro que importe otro config
 
-```bash
-npm run build
-npm run preview
-```
+## Stack
+
+- Astro + HTML semántico
+- Tailwind CSS v4
+- JavaScript modular (`premium-landing.js`, `landing-interactions.js`)
+- Diseño premium oscuro, glassmorphism, sticky CTA móvil

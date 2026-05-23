@@ -1,0 +1,44 @@
+---
+import type { ProductData } from '../../config/product-data';
+import HeroGallery from './HeroGallery.astro';
+import Benefits from './Benefits.astro';
+import Lifestyle from './Lifestyle.astro';
+import Features from './Features.astro';
+import UrgencyPackages from './UrgencyPackages.astro';
+import TiktokSection from './TiktokSection.astro';
+import Guarantees from './Guarantees.astro';
+import Testimonials from './Testimonials.astro';
+import FAQ from './FAQ.astro';
+import Related from './Related.astro';
+import FinalCTA from './FinalCTA.astro';
+import Footer from './Footer.astro';
+import StickyBar from './StickyBar.astro';
+import WhatsAppFloat from './WhatsAppFloat.astro';
+
+interface Props {
+  data: ProductData;
+}
+
+const { data } = Astro.props;
+---
+
+<main>
+  <HeroGallery data={data} />
+  <Benefits data={data} />
+  <Lifestyle data={data} />
+  <Features data={data} />
+  <UrgencyPackages data={data} />
+  <TiktokSection data={data} />
+  <Guarantees data={data} />
+  <Testimonials data={data} />
+  <FAQ data={data} />
+  <Related data={data} />
+  <FinalCTA data={data} />
+  <Footer data={data} />
+</main>
+
+<StickyBar data={data} />
+<WhatsAppFloat data={data} />
+
+<script src="../../scripts/premium-landing.js"></script>
+<script src="../../scripts/landing-interactions.js"></script>

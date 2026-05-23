@@ -1,11 +1,9 @@
 ---
-import LandingLayout from '../layouts/LandingLayout.astro';
-import LandingPage from '../components/landing/LandingPage.astro';
-import { loadLandingConfig } from '../lib/landing-config';
-
-const config = await loadLandingConfig();
+import PremiumLayout from '../layouts/PremiumLayout.astro';
+import PremiumLanding from '../components/premium/PremiumLanding.astro';
+import { productData } from '../config/product-data';
 ---
 
-<LandingLayout title={config.meta.title} description={config.meta.description} accent={config.theme.accent}>
-  <LandingPage config={config} />
-</LandingLayout>
+<PremiumLayout data={productData}>
+  <PremiumLanding data={productData} />
+</PremiumLayout>

@@ -1,0 +1,21 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+const wa = data.whatsapp;
+if (!wa.flotante) return null;
+const href = `https://wa.me/${wa.numero}?text=${encodeURIComponent(wa.mensaje)}`;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-2xl text-white shadow-lg transition hover:scale-110 lg:bottom-6"
+  aria-label="WhatsApp"
+>
+  💬
+</a>

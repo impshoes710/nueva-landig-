@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import '../styles/premium.css';
+import CheckoutModal from '../components/CheckoutModal.astro';
+import type { ProductData } from '../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+
+const { data } = Astro.props;
+const { meta, tema } = data;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{meta.titulo}</title>
+    <meta name="description" content={meta.descripcion} />
+    <meta name="keywords" content={meta.keywords} />
+    <meta name="theme-color" content={tema.fondo} />
+    <meta property="og:title" content={meta.titulo} />
+    <meta property="og:description" content={meta.descripcion} />
+    <meta property="og:image" content={meta.imagenOg} />
+    <meta property="og:type" content="product" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://lp.calzadoselite.co/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+  </head>
+  <body
+    class="overflow-x-hidden antialiased"
+    style={`--premium-accent:${tema.acento};--premium-accent-fg:${tema.acentoTexto};--premium-bg:${tema.fondo};--premium-surface:${tema.superficie};--premium-text:${tema.texto};--premium-muted:${tema.textoSuave};font-family:'DM Sans',system-ui,sans-serif;background:var(--premium-bg);color:var(--premium-text)`}
+  >
+    <slot />
+    <CheckoutModal />
+    <script src="../scripts/checkout-modal.js"></script>
+  </body>
+</html>

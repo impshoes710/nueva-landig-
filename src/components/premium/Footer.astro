@@ -1,0 +1,31 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+const f = data.footer;
+---
+
+<footer class="border-t border-white/10 px-4 py-10 pb-28 lg:pb-10">
+  <div class="mx-auto max-w-6xl text-center">
+    <p class="text-lg font-bold">{f.marca}</p>
+    <div class="mt-4 flex flex-wrap justify-center gap-2 text-sm text-[var(--premium-muted)]">
+      {f.metodosPago.map((m) => (
+        <span class="rounded-full bg-white/5 px-3 py-1">{m}</span>
+      ))}
+    </div>
+    <nav class="mt-6 flex flex-wrap justify-center gap-4 text-sm">
+      {f.enlaces.map((e) => (
+        <a href={e.url} class="text-[var(--premium-muted)] hover:text-[var(--premium-text)]">
+          {e.label}
+        </a>
+      ))}
+      <a href="/admin" class="text-[var(--premium-muted)] hover:text-[var(--premium-text)]">
+        Editar plantilla
+      </a>
+    </nav>
+    <p class="mt-6 text-xs text-[var(--premium-muted)]">{f.credito}</p>
+  </div>
+</footer>

@@ -1,0 +1,27 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-14 lg:px-6" id="beneficios">
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      data.beneficios.map((b, i) => (
+        <article
+          class="premium-glass premium-animate-in rounded-2xl p-5 transition hover:-translate-y-1 hover:shadow-xl"
+          style={`animation-delay:${i * 80}ms`}
+        >
+          <span class="text-3xl" aria-hidden="true">
+            {b.icono}
+          </span>
+          <h3 class="mt-3 font-bold">{b.titulo}</h3>
+          <p class="mt-1 text-sm text-[var(--premium-muted)]">{b.texto}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

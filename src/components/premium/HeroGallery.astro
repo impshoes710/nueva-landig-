@@ -1,0 +1,157 @@
+---
+import type { ProductData } from '../../config/product-data';
+import { formatPrecio, calcularDescuento } from '../../lib/format';
+
+interface Props {
+  data: ProductData;
+}
+
+const { data } = Astro.props;
+const descuento = calcularDescuento(data.precio, data.precioAnterior);
+const hasVideo = Boolean(data.videoPrincipal);
+---
+
+<section class="premium-animate-in relative" id="hero">
+  <div class="mx-auto max-w-6xl px-4 pt-4 lg:grid lg:grid-cols-2 lg:gap-10 lg:px-6 lg:pt-8">
+    <!-- Galería -->
+    <div class="relative">
+      <div
+        id="gallery-zoom-wrap"
+        class="premium-glass relative aspect-square overflow-hidden rounded-3xl"
+      >
+        {hasVideo ? (
+          <video
+            id="gallery-main-img"
+            src={data.videoPrincipal}
+            class="h-full w-full object-contain"
+            autoplay
+            muted
+            loop
+            playsinline
+          />
+        ) : (
+          <img
+            id="gallery-main-img"
+            src={data.imagenes[0]}
+            alt={data.nombre}
+            class="h-full w-full object-contain p-4"
+            loading="eager"
+            fetchpriority="high"
+          />
+        )}
+        <span
+          class="absolute left-4 top-4 rounded-full bg-[var(--premium-accent)] px-3 py-1 text-xs font-bold text-[var(--premium-accent-fg)] shadow-lg"
+        >
+          {data.badgeDescuento}
+        </span>
+      </div>
+
+      <div class="mt-3 flex gap-2 overflow-x-auto premium-scroll-x pb-1" id="gallery-thumbs">
+        {data.imagenes.map((src, i) => (
+          <button
+            type="button"
+            class:list={[
+              'gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 p-1 transition',
+              i === 0 ? 'border-[var(--premium-accent)]' : 'border-white/10 opacity-70',
+            ]}
+            data-src={src}
+            data-type="image"
+            aria-label={`Ver imagen ${i + 1}`}
+          >
+            <img src={src} alt="" class="h-full w-full object-contain" loading="lazy" />
+          </button>
+        ))}
+        {data.videos.map((v, i) => (
+          <button
+            type="button"
+            class="gallery-thumb relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 border-white/10 p-0.5 opacity-80"
+            data-src={v.url}
+            data-poster={v.poster}
+            data-type="video"
+            aria-label={`Ver video ${i + 1}`}
+          >
+            <img src={v.poster || data.imagenes[0]} alt="" class="h-full w-full object-cover" loading="lazy" />
+            <span class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/30 text-lg text-white">▶</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Info producto -->
+    <div class="mt-6 lg:mt-0 lg:flex lg:flex-col lg:justify-center">
+      <p class="text-xs font-semibold uppercase tracking-widest text-[var(--premium-accent)]">
+        {data.etiqueta}
+      </p>
+      <h1 class="mt-2 text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
+        {data.nombre}
+      </h1>
+      <p class="mt-2 text-lg text-[var(--premium-muted)]">{data.subtitulo}</p>
+
+      <div class="mt-5 flex flex-wrap items-end gap-3">
+        <span class="text-3xl font-bold text-[var(--premium-accent)]">
+          {formatPrecio(data.precio, data.moneda)}
+        </span>
+        <span class="text-lg text-[var(--premium-muted)] line-through">
+          {formatPrecio(data.precioAnterior, data.moneda)}
+        </span>
+        <span class="rounded-md bg-white/10 px-2 py-0.5 text-sm font-semibold">-{descuento}</span>
+      </div>
+
+      <!-- Colores -->
+      <div class="mt-6">
+        <p class="mb-2 text-sm font-medium text-[var(--premium-muted)]">Color</p>
+        <div class="flex flex-wrap gap-2" id="color-options">
+          {data.colores.map((c, i) => (
+            <button
+              type="button"
+              class:list={[
+                'color-option flex items-center gap-2 rounded-xl border px-3 py-2 text-sm transition',
+                i === 0
+                  ? 'border-[var(--premium-accent)] bg-[var(--premium-accent)]/10'
+                  : 'border-white/10 hover:border-white/30',
+              ]}
+              data-image={c.imagen}
+              title={c.nombre}
+            >
+              <span
+                class="h-5 w-5 rounded-full border border-white/20"
+                style={`background:${c.hex}`}
+              />
+              {c.nombre}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Tallas -->
+      <div class="mt-5">
+        <p class="mb-2 text-sm font-medium text-[var(--premium-muted)]">Talla</p>
+        <select
+          id="size-select"
+          class="w-full rounded-xl border border-white/10 bg-[var(--premium-surface)] px-4 py-3 text-base outline-none focus:border-[var(--premium-accent)]"
+        >
+          {data.tallas.map((t) => (
+            <option value={t}>{t}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <button
+          type="button"
+          data-checkout-open
+          class="premium-cta-pulse flex flex-1 items-center justify-center rounded-2xl bg-[var(--premium-accent)] px-6 py-4 text-base font-bold text-[var(--premium-accent-fg)] shadow-lg transition hover:brightness-110"
+        >
+          {data.cta.principal}
+        </button>
+        <button
+          type="button"
+          data-checkout-open
+          class="flex flex-1 items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-4 text-base font-semibold backdrop-blur transition hover:bg-white/10"
+        >
+          {data.cta.secundario}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-14 lg:px-6" id="caracteristicas">
+  <h2 class="text-center text-2xl font-bold md:text-3xl">Especificaciones</h2>
+  <div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+    {
+      data.caracteristicas.map((c) => (
+        <div class="premium-glass rounded-2xl p-5 text-center">
+          <p class="text-3xl font-bold text-[var(--premium-accent)]">
+            {c.valor}
+            <span class="text-lg">{c.unidad}</span>
+          </p>
+          <p class="mt-1 text-sm text-[var(--premium-muted)]">{c.label}</p>
+        </div>
+      ))
+    }
+  </div>
+  <ul class="mx-auto mt-10 max-w-2xl space-y-3">
+    {
+      data.detallesProducto.map((d) => (
+        <li class="flex items-start gap-3 text-[var(--premium-muted)]">
+          <span class="mt-1 text-[var(--premium-accent)]">✓</span>
+          {d}
+        </li>
+      ))
+    }
+  </ul>
+</section>

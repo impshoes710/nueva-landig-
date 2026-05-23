@@ -1,0 +1,53 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+const t = data.testimonios;
+---
+
+<section class="py-14" id="testimonios">
+  <h2 class="px-4 text-center text-2xl font-bold md:text-3xl">{t.titulo}</h2>
+
+  <div class="mt-8 flex gap-4 overflow-x-auto premium-scroll-x px-4 pb-2 snap-x snap-mandatory">
+    {
+      t.items.map((item) => (
+        <article class="premium-glass w-[280px] shrink-0 snap-start rounded-2xl p-5">
+          <div class="flex items-center gap-3">
+            <img
+              src={item.foto}
+              alt={item.nombre}
+              class="h-12 w-12 rounded-full object-cover ring-2 ring-[var(--premium-accent)]"
+              loading="lazy"
+            />
+            <div>
+              <p class="font-semibold">{item.nombre}</p>
+              <p class="text-xs text-[var(--premium-muted)]">{item.ciudad}</p>
+            </div>
+          </div>
+          <p class="mt-2 text-[var(--premium-accent)]" aria-label={`${item.estrellas} estrellas`}>
+            {'★'.repeat(item.estrellas)}
+          </p>
+          <p class="mt-2 text-sm text-[var(--premium-muted)]">{item.texto}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  {t.imagenes.length > 0 && (
+    <div class="mt-6 flex gap-3 overflow-x-auto premium-scroll-x px-4">
+      {
+        t.imagenes.map((src) => (
+          <img
+            src={src}
+            alt="Cliente"
+            class="h-56 w-36 shrink-0 rounded-xl object-cover ring-1 ring-white/10"
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+  )}
+</section>

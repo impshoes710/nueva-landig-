@@ -1,0 +1,24 @@
+---
+import type { ProductData } from '../../config/product-data';
+
+interface Props {
+  data: ProductData;
+}
+const { data } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl space-y-4 px-4 py-8 lg:px-6">
+  {
+    data.garantias.map((g) => (
+      <article class="premium-glass overflow-hidden rounded-2xl">
+        {g.video && (
+          <video src={g.video} class="aspect-video w-full object-cover" autoplay muted loop playsinline />
+        )}
+        <div class="p-5">
+          <h3 class="font-bold">{g.titulo}</h3>
+          <p class="mt-1 text-sm text-[var(--premium-muted)]">{g.texto}</p>
+        </div>
+      </article>
+    ))
+  }
+</section>
