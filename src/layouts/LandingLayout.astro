@@ -2,6 +2,7 @@
 import headContent from '../partials/head-content.html?raw';
 import CheckoutModal from '../components/CheckoutModal.astro';
 import '../styles/buttons-black.css';
+import { colors, productName, discountPercent } from '../config/product-images.js';
 ---
 
 <!doctype html>
@@ -10,8 +11,14 @@ import '../styles/buttons-black.css';
     <Fragment set:html={headContent} />
   </head>
   <body>
+    <script is:inline define:vars={{ colors, productName, discountPercent }}>
+      window.__PRODUCT_COLORS__ = colors;
+      window.__PRODUCT_NAME__ = productName;
+      window.__PRODUCT_DISCOUNT__ = discountPercent;
+    </script>
     <slot />
     <CheckoutModal />
+    <script src="../scripts/color-selector.js"></script>
     <script src="../scripts/checkout-modal.js"></script>
   </body>
 </html>
