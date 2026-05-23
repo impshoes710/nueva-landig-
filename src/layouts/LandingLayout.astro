@@ -1,7 +1,17 @@
 ---
-import headContent from '../partials/head-content.html?raw';
+import headContentDefault from '../partials/head-content.html?raw';
+import headContentCadense from '../partials/head-content-cadense.html?raw';
+import galleryConfig from '../data/cadense-gallery.json';
 import CheckoutModal from '../components/CheckoutModal.astro';
 import '../styles/buttons-black.css';
+
+interface Props {
+  head?: 'cadense';
+}
+
+const { head } = Astro.props;
+const isCadense = head === 'cadense';
+const headContent = isCadense ? headContentCadense : headContentDefault;
 ---
 
 <!doctype html>
@@ -10,8 +20,22 @@ import '../styles/buttons-black.css';
     <Fragment set:html={headContent} />
   </head>
   <body>
+    {isCadense && (
+      <script
+        type="application/json"
+        id="cadense-gallery-config"
+        set:html={JSON.stringify(galleryConfig)}
+      />
+    )}
     <slot />
     <CheckoutModal />
-    <script src="../scripts/checkout-modal.js"></script>
+    {isCadense && (
+      <script>
+        import '../scripts/cadense-gallery.js';
+      </script>
+    )}
+    <script>
+      import '../scripts/checkout-modal.js';
+    </script>
   </body>
 </html>

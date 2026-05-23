@@ -1,0 +1,41 @@
+{
+  "colors": {
+    "Blanco": {
+      "thumb": "/images/cadense/Gemini_Generated_Image_ukfcmkukfcmkukfc_1200x1200.png",
+      "gallery": [
+        "/images/cadense/Gemini_Generated_Image_ukfcmkukfcmkukfc_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_h8so07h8so07h8so_1.png",
+        "/images/cadense/Gemini_Generated_Image_cken4zcken4zcken_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_hh26bhhh26bhhh26_1200x1200.png"
+      ]
+    },
+    "Gris": {
+      "thumb": "/images/cadense/Gemini_Generated_Image_h8so07h8so07h8so_1.png",
+      "gallery": [
+        "/images/cadense/Gemini_Generated_Image_h8so07h8so07h8so_1.png",
+        "/images/cadense/Gemini_Generated_Image_h8so07h8so07h8so_1.png",
+        "/images/cadense/Gemini_Generated_Image_h8so07h8so07h8so_1.png",
+        "/images/cadense/Gemini_Generated_Image_h8so07h8so07h8so_1.png"
+      ]
+    },
+    "Negro": {
+      "thumb": "/images/cadense/Gemini_Generated_Image_cken4zcken4zcken_1200x1200.png",
+      "gallery": [
+        "/images/cadense/Gemini_Generated_Image_cken4zcken4zcken_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_cken4zcken4zcken_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_cken4zcken4zcken_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_cken4zcken4zcken_1200x1200.png"
+      ]
+    },
+    "Azul": {
+      "thumb": "/images/cadense/Gemini_Generated_Image_hh26bhhh26bhhh26_1200x1200.png",
+      "gallery": [
+        "/images/cadense/Gemini_Generated_Image_hh26bhhh26bhhh26_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_hh26bhhh26bhhh26_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_hh26bhhh26bhhh26_1200x1200.png",
+        "/images/cadense/Gemini_Generated_Image_hh26bhhh26bhhh26_1200x1200.png"
+      ]
+    }
+  },
+  "defaultColor": "Blanco"
+}
