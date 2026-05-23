@@ -1,10 +1,11 @@
 ---
-export const prerender = true;
-
 import LandingLayout from '../layouts/LandingLayout.astro';
-import bodyContent from '../partials/body-content-cadense.html?raw';
+import LandingPage from '../components/landing/LandingPage.astro';
+import { loadLandingConfig } from '../lib/landing-config';
+
+const config = await loadLandingConfig();
 ---
 
-<LandingLayout head="cadense">
-  <Fragment set:html={bodyContent} />
+<LandingLayout title={config.meta.title} description={config.meta.description} accent={config.theme.accent}>
+  <LandingPage config={config} />
 </LandingLayout>

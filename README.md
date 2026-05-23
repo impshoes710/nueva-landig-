@@ -1,70 +1,54 @@
-# lpcelite-astro (botones negros)
+# Landing Lokal Big (editable)
 
-Copia del landing **Lokal Big Blanco** de [Calzados Elite](https://lp.calzadoselite.co/oferta/lokal-big-blanco), en [Astro](https://astro.build/), con botones negros y pedidos enviados a **Shopify** al completar el formulario.
+Copia editable del landing [Lokal Big Blanco](https://lp.calzadoselite.co/oferta/lokal-big-blanco), en [Astro](https://astro.build/), con panel de administración para cambiar fotos, videos, textos, colores, precios y promociones.
 
 ## Desarrollo
-
-1. Copia las variables de entorno:
-
-```bash
-cp .env.example .env
-```
-
-2. Las credenciales están en `src/config/shopify.ts`. Opcionalmente puedes sobrescribirlas con `.env`.
-
-3. Inicia el servidor:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abre http://localhost:4321
+- **Landing**: http://localhost:4321/
+- **Editor**: http://localhost:4321/admin
 
-## Producción
+## Editar contenido
+
+1. Abre **/admin** en el navegador.
+2. Cambia textos, colores (selector), URLs de imágenes/videos, precios de paquetes, FAQ, etc.
+3. Pulsa **Guardar cambios** (en local escribe `src/data/lokal-big-blanco.json`).
+4. Recarga la landing principal.
+
+También puedes editar directamente el archivo `src/data/lokal-big-blanco.json` o usar **Descargar JSON** y subirlo al repositorio.
+
+### Producción (Vercel)
+
+El sistema de archivos en Vercel es de solo lectura. Para guardar desde `/admin` en producción:
+
+1. Define la variable `LANDING_ADMIN_SECRET` en Vercel.
+2. En el editor, abre la consola del navegador y ejecuta:  
+   `localStorage.setItem('landing-admin-secret', 'tu-clave')`
+3. Guarda desde el panel.
+
+Si no usas el secreto, descarga el JSON desde el admin y reemplaza `src/data/lokal-big-blanco.json` antes de desplegar.
+
+## Shopify — pedidos
+
+Al pulsar **Pagar en casa**, se llama a `POST /api/create-order`. Configura en `.env`:
+
+```env
+SHOPIFY_STORE_DOMAIN=ba6703.myshopify.com
+SHOPIFY_ADMIN_ACCESS_TOKEN=shpat_xxxxxxxx
+SHOPIFY_API_VERSION=2026-04
+```
+
+## Otras rutas
+
+- `/cadense` — versión anterior (HTML estático JR_CADENSE)
+
+## Build
 
 ```bash
 npm run build
 npm run preview
 ```
-
-En hosting (Railway, Render, VPS, etc.) debes desplegar en **modo Node** (el proyecto usa `@astrojs/node` para la API).
-
-## Shopify — configuración de la API
-
-1. En **Shopify Admin** → **Configuración** → **Apps y canales de venta** → **Desarrollar apps** → crea una app personalizada.
-2. Activa el scope **`write_orders`** (y `read_products` si lo pide).
-3. Instala la app en la tienda y copia el **Admin API access token** (`shpat_...`).
-4. En `.env`:
-
-```env
-SHOPIFY_STORE_DOMAIN=tu-tienda.myshopify.com
-SHOPIFY_ADMIN_ACCESS_TOKEN=shpat_xxxxxxxx
-SHOPIFY_API_VERSION=2026-04
-```
-
-Al enviar el formulario **Pagar en casa**, el sitio llama a `POST /api/create-order`, que crea un pedido en Shopify con:
-
-- Variante y talla seleccionadas en la página
-- Cantidad según paquete (1 par / 2 pares)
-- Dirección de envío y datos del cliente
-- Estado de pago **pendiente** (pago contra entrega)
-- Etiquetas: `landing-astro`, `pagar-en-casa`
-
-
-
-## Despliegue en Vercel
-
-En **Vercel → Project → Settings → Environment Variables**, añade:
-
-| Variable | Valor |
-|----------|--------|
-| `SHOPIFY_STORE_DOMAIN` | `ba6703.myshopify.com` |
-| `SHOPIFY_ADMIN_ACCESS_TOKEN` | tu token `shpat_...` |
-| `SHOPIFY_API_VERSION` | `2026-04` |
-
-Sin `SHOPIFY_ADMIN_ACCESS_TOKEN` el build pasa, pero los pedidos fallarán al enviarse.
-
-## Nota
-
-Las imágenes y videos se cargan desde `lp.calzadoselite.co` y el CDN de Shopify.

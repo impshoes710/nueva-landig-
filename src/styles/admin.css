@@ -1,0 +1,81 @@
+@import 'tailwindcss';
+
+.admin-body {
+  @apply min-h-screen bg-neutral-100 text-neutral-900;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.admin-header {
+  @apply sticky top-0 z-10 flex flex-wrap items-start justify-between gap-4 border-b border-neutral-200 bg-white px-6 py-4 shadow-sm;
+}
+
+.admin-header h1 {
+  @apply text-xl font-bold;
+}
+
+.admin-sub {
+  @apply mt-1 max-w-xl text-sm text-neutral-600;
+}
+
+.admin-sub a {
+  @apply text-pink-600 underline;
+}
+
+.admin-actions {
+  @apply flex flex-wrap gap-2;
+}
+
+.admin-btn {
+  @apply rounded-lg px-4 py-2 text-sm font-semibold transition;
+}
+
+.admin-btn--primary {
+  @apply bg-neutral-900 text-white hover:bg-neutral-800;
+}
+
+.admin-btn--ghost {
+  @apply border border-neutral-300 bg-white hover:bg-neutral-50;
+}
+
+.admin-status {
+  @apply mx-6 mt-3 min-h-6 text-sm font-medium text-green-700;
+}
+
+.admin-form {
+  @apply mx-auto max-w-3xl space-y-6 px-6 py-8 pb-24;
+}
+
+.admin-section {
+  @apply rounded-xl border border-neutral-200 bg-white p-5 shadow-sm;
+}
+
+.admin-section h2 {
+  @apply mb-4 text-lg font-bold;
+}
+
+.admin-grid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+.admin-section label {
+  @apply mb-3 block text-sm font-medium text-neutral-700;
+}
+
+.admin-section input[type='text'],
+.admin-section input[type='url'],
+.admin-section input[type='number'],
+.admin-section textarea {
+  @apply mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-base font-normal text-neutral-900;
+}
+
+.admin-section input[type='color'] {
+  @apply mt-1 h-10 w-full cursor-pointer rounded border border-neutral-300;
+}
+
+.admin-check {
+  @apply flex items-center gap-2 pt-6;
+}
+
+.admin-hint {
+  @apply mb-2 text-xs text-neutral-500;
+}

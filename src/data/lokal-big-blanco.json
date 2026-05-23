@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "title": "Lokal Big | Blanco | CalzadosElite",
+    "description": "Lokal Big Blanco en oferta"
+  },
+  "theme": {
+    "accent": "#ff1a47",
+    "accentForeground": "#ffffff",
+    "background": "#ffffff",
+    "foreground": "#0a0a0a"
+  },
+  "product": {
+    "name": "Lokal Big",
+    "colorLabel": "Blanco",
+    "discountBadge": "30% OFF",
+    "features": [
+      "Reflectivo",
+      "Ultra ligeras (250g)"
+    ],
+    "gallery": [
+      "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_b_3.png?width=900&quality=70&format=webp",
+      "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_b_2.png?width=900&quality=70&format=webp",
+      "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_b_1.png?width=900&quality=70&format=webp",
+      "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_b_4.png?width=900&quality=70&format=webp"
+    ],
+    "sizes": [
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43"
+    ],
+    "colorOptions": [
+      {
+        "name": "Blanco",
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_b_4.png?width=900&quality=70&format=webp"
+      },
+      {
+        "name": "Blanco Camuflado",
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_bc_4.png?width=900&quality=70&format=webp"
+      },
+      {
+        "name": "Negro Morado",
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_nm_4.png?width=900&quality=70&format=webp"
+      },
+      {
+        "name": "Negro Blanco",
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_n_4.png?width=900&quality=70&format=webp"
+      },
+      {
+        "name": "Rojo",
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_r_4.png?width=900&quality=70&format=webp"
+      }
+    ]
+  },
+  "promotion": {
+    "urgencyText": "En liquidación por tiempo limitado",
+    "countdownHours": 24,
+    "showCountdown": true
+  },
+  "packages": [
+    {
+      "label": "1 par",
+      "subtitle": "Envío gratis incluido",
+      "comparePrice": "$210,000",
+      "price": "$119,000",
+      "quantity": 1,
+      "percent": "43"
+    },
+    {
+      "label": "2 pares",
+      "subtitle": "Cada par a $100,000!",
+      "comparePrice": "$420,000",
+      "price": "$200,000",
+      "quantity": 2,
+      "percent": "52"
+    }
+  ],
+  "tiktok": {
+    "title": "Los más virales de Tiktok ¿Ya tienes los tuyos?",
+    "videos": [
+      {
+        "url": "https://cdn.shopify.com/videos/c/vp/930c168494704fc19b89b659e51ae942/930c168494704fc19b89b659e51ae942.SD-480p-0.9Mbps-59941993.mp4",
+        "views": "2.5 mill."
+      },
+      {
+        "url": "https://cdn.shopify.com/videos/c/vp/190aca21927b48d2a4a17732d2f63be5/190aca21927b48d2a4a17732d2f63be5.SD-480p-0.9Mbps-59882250.mp4",
+        "views": "610.5 mil"
+      }
+    ],
+    "caption": "12M de vistas en Tiktok e Instagram la gente está obsesionada con estos tenis"
+  },
+  "social": {
+    "brand": "Calzados Elite",
+    "posts": "699",
+    "followers": "578 mil",
+    "following": "2,703",
+    "message": "+50k pares entregados en 2025, gracias por recomendarnos y apoyarnos desde el día uno 😊"
+  },
+  "trust": [
+    {
+      "title": "Pagar en casa",
+      "video": "https://lp.calzadoselite.co/shipping.mp4",
+      "heading": "Tiempo de entrega",
+      "text": "Pídelos hoy y paga al recibir en la puerta de tu casa. El tiempo estimado de entrega es de 2 a 5 días hábiles según tu ciudad."
+    },
+    {
+      "title": "3 meses de garantía",
+      "video": "https://lp.calzadoselite.co/support.mp4",
+      "heading": "3 meses de garantía",
+      "text": "Todos nuestros tenis cuentan con 3 meses de garantía contra defectos de fabricación. Si algo no está bien, te ayudamos a resolverlo sin costo adicional."
+    },
+    {
+      "title": "Cambios de talla gratis",
+      "video": "",
+      "heading": "Cambios de talla gratis",
+      "text": "Si al recibir tus tenis la talla no te queda bien, no te preocupes. Realizamos el cambio de talla totalmente gratis para que encuentres la ideal."
+    }
+  ],
+  "benefits": [
+    {
+      "title": "Logística confiable",
+      "text": "La transportadora recoge nuestros paquetes a diario. Envíos seguros a todo Colombia."
+    },
+    {
+      "title": "Atención personalizada",
+      "text": "Nuestro equipo te acompaña en todo el proceso. Atención rápida y cercana."
+    }
+  ],
+  "testimonials": {
+    "title": "Ellos ya usan nuestros tenis ¿Quieres ser el próximo?",
+    "images": [
+      "https://lp.calzadoselite.co/store_reviews/1.png",
+      "https://lp.calzadoselite.co/store_reviews/2.png",
+      "https://lp.calzadoselite.co/store_reviews/3.png",
+      "https://lp.calzadoselite.co/store_reviews/4.png",
+      "https://lp.calzadoselite.co/store_reviews/5.png",
+      "https://lp.calzadoselite.co/store_reviews/6.png",
+      "https://lp.calzadoselite.co/store_reviews/7.png",
+      "https://lp.calzadoselite.co/store_reviews/8.png"
+    ]
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "items": [
+      {
+        "q": "¿Que pasa si pido la talla equivocada?",
+        "a": "No te preocupes, tenemos cambio de talla gratis. Si no te queda bien, solo nos avisas y te ayudamos a cambiarla sin costo adicional."
+      },
+      {
+        "q": "¿Cuánto tardarán en llegar?",
+        "a": "El tiempo de entrega suele ser de 2 a 5 días hábiles. No te preocupes, te vamos informando el estado del envío y siempre tendrás a alguien del equipo disponible para responderte."
+      }
+    ],
+    "whatsapp": "Contáctanos por Whatsapp",
+    "whatsappUrl": "https://wa.me/573001234567"
+  },
+  "related": {
+    "title": "Más vendidos de la semana",
+    "products": [
+      {
+        "title": "Lokal Preto Negro Morado",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/prt_nm_2.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Lokal Big Blanco",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_b_4.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Lokal Big Blanco Camuflado",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_bc_4.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "McQueen Diamond Negro",
+        "price": 169000,
+        "compareAtPrice": 250000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/al_mc_ne_4.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Tag Skate Rojo",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/ts_ro_3.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Tag Skate Blanco",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/ts_bl_3.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Lokal Big Negro Morado",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/s2_lb_nm_4.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Lokal Preto Negro",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/prt_nb_2.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Lokal Preto Gris",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/prt_gr_2.png?width=900&quality=70&format=webp",
+        "url": "#"
+      },
+      {
+        "title": "Lokal Preto Blanco",
+        "price": 149000,
+        "compareAtPrice": 210000,
+        "image": "https://cdn.shopify.com/s/files/1/0948/6296/7074/files/prt_bl_2.png?width=900&quality=70&format=webp",
+        "url": "#"
+      }
+    ],
+    "catalogUrl": "https://calzadoselite.co",
+    "catalogLabel": "Ver catálogo completo"
+  },
+  "footer": {
+    "termsUrl": "#",
+    "privacyUrl": "#",
+    "credit": "<> con ❤️ by DET"
+  }
+}
