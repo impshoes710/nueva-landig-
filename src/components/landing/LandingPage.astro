@@ -1,0 +1,324 @@
+---
+import type { LandingConfig } from '../../types/landing-config';
+import { packageDiscount } from '../../lib/landing-config';
+
+interface Props {
+  config: LandingConfig;
+}
+
+const { config } = Astro.props;
+const pkg1 = config.packages[0];
+const pkg2 = config.packages[1] ?? config.packages[0];
+const disc1 = packageDiscount(pkg1.comparePrice, pkg1.price);
+const disc2 = packageDiscount(pkg2.comparePrice, pkg2.price);
+
+function formatProductPrice(n: number) {
+  return '$' + n.toLocaleString('es-CO');
+}
+---
+
+<div
+  id="landing-root"
+  class="landing-root min-h-screen bg-[var(--landing-bg)] text-[var(--landing-fg)]"
+  style={`--landing-accent:${config.theme.accent};--landing-accent-fg:${config.theme.accentForeground};--landing-bg:${config.theme.background};--landing-fg:${config.theme.foreground}`}
+  data-product-name={`${config.product.name} ${config.product.colorLabel}`}
+  data-package1-total={pkg1.price}
+  data-package1-compare={pkg1.comparePrice}
+  data-package1-discount={disc1}
+  data-package1-percent={pkg1.percent}
+  data-package2-total={pkg2.price}
+  data-package2-compare={pkg2.comparePrice}
+  data-package2-discount={disc2}
+  data-package2-percent={pkg2.percent}
+  data-countdown-hours={config.promotion.countdownHours}
+>
+  <!-- Hero / galería -->
+  <section class="mx-auto max-w-lg">
+    <div class="relative bg-neutral-100">
+      <div id="gallery-main" class="flex aspect-square items-center justify-center p-4">
+        <img
+          id="gallery-main-img"
+          src={config.product.gallery[0]}
+          alt={config.product.name}
+          class="max-h-full max-w-full object-contain"
+        />
+      </div>
+      {config.product.gallery.length > 1 && (
+        <div class="flex gap-2 overflow-x-auto px-4 pb-4" id="gallery-thumbs">
+          {config.product.gallery.map((src, i) => (
+            <button
+              type="button"
+              class:list={[
+                'gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 p-1',
+                i === 0 ? 'border-[var(--landing-accent)]' : 'border-transparent',
+              ]}
+              data-src={src}
+            >
+              <img src={src} alt="" class="h-full w-full object-contain" />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="space-y-3 px-5 pt-4">
+      <div class="flex flex-wrap items-start justify-between gap-2">
+        <div>
+          <h1 class="text-2xl font-bold leading-tight">
+            {config.product.name}
+            <span class="text-neutral-500">| {config.product.colorLabel}</span>
+          </h1>
+          <span class="mt-1 inline-block rounded-md bg-[var(--landing-accent)] px-2 py-0.5 text-sm font-bold text-[var(--landing-accent-fg)]">
+            {config.product.discountBadge}
+          </span>
+        </div>
+      </div>
+
+      <ul class="flex flex-wrap gap-2">
+        {config.product.features.map((f) => (
+          <li class="rounded-full bg-neutral-100 px-3 py-1 text-sm font-medium">{f}</li>
+        ))}
+      </ul>
+
+      {config.promotion.showCountdown && (
+        <div class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-center text-sm">
+          <span>{config.promotion.urgencyText}</span>
+          <span class="ml-1 font-semibold text-amber-800">
+            Termina en <span id="countdown-display">00h 00m 00s</span> ⚠️
+          </span>
+        </div>
+      )}
+
+      <!-- Colores -->
+      {config.product.colorOptions.length > 0 && (
+        <div>
+          <p class="mb-2 text-sm font-semibold text-neutral-600">Color</p>
+          <div class="flex flex-wrap gap-2" id="color-options">
+            {config.product.colorOptions.map((c, i) => (
+              <button
+                type="button"
+                class:list={[
+                  'color-option flex items-center gap-2 rounded-lg border-2 px-2 py-1.5 text-sm',
+                  i === 0 ? 'border-[var(--landing-accent)] bg-[var(--landing-accent)]/10' : 'border-neutral-200',
+                ]}
+                data-image={c.image}
+                title={c.name}
+              >
+                <img src={c.image} alt={c.name} class="h-8 w-8 rounded object-contain" />
+                <span class="font-medium">{c.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Tallas -->
+      <div>
+        <p class="mb-2 text-sm font-semibold text-neutral-600">Talla</p>
+        <select
+          id="size-select"
+          class="w-full rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-base"
+        >
+          {config.product.sizes.map((s) => (
+            <option value={s}>{s}</option>
+          ))}
+        </select>
+      </div>
+
+      <!-- Paquetes -->
+      <div class="grid gap-3">
+        {config.packages.map((pkg, i) => (
+          <div
+            class:list={[
+              'package-card cursor-pointer overflow-hidden rounded-lg border p-4 transition',
+              i === 0
+                ? 'border-[var(--landing-accent)] bg-[var(--landing-accent)]/15'
+                : 'border-neutral-300 bg-neutral-50',
+            ]}
+            data-package-index={i}
+          >
+            <div class="flex items-center gap-5">
+              <div class="shrink-0">
+                {i === 0 ? (
+                  <div class="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--landing-accent)]">
+                    <svg class="h-3 w-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></svg>
+                  </div>
+                ) : (
+                  <svg class="h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></svg>
+                )}
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="font-semibold text-md">{pkg.label}</p>
+                <p class="text-sm text-neutral-600">{pkg.subtitle}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-sm text-neutral-400 line-through">{pkg.comparePrice}</p>
+                <p class="text-lg font-bold text-[var(--landing-accent)]">{pkg.price}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Resumen carrito -->
+      <div class="gutter-md rounded-xl border border-neutral-200 bg-white p-4">
+        <div class="space-y-3 pb-4">
+          <div class="flex items-center justify-between text-sm">
+            <p>Subtotal</p>
+            <p class="font-semibold" id="summary-subtotal">{pkg1.comparePrice}</p>
+          </div>
+          <div class="flex items-center justify-between text-sm">
+            <p>Descuento</p>
+            <p class="font-semibold text-[var(--landing-accent)]" id="summary-discount">-{disc1}</p>
+          </div>
+        </div>
+        <div class="flex items-center justify-between border-t border-neutral-100 pt-3">
+          <div class="flex items-center gap-2">
+            <span class="text-lg font-bold" id="summary-total">{pkg1.price}</span>
+            <span class="rounded-md bg-[var(--landing-accent)] px-1.5 py-0.5 text-xs font-bold text-[var(--landing-accent-fg)]" id="summary-percent">{pkg1.percent}%</span>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="btn-pagar-casa"
+        class="animate-pulse flex w-full max-w-md mx-auto cursor-pointer items-center justify-center gap-3 rounded-lg bg-[var(--landing-accent)] px-5 py-3.5 text-md font-semibold text-[var(--landing-accent-fg)]"
+      >
+        Pagar en casa
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.58 2.69 11.42 2.69 1.92 9.47 3.08 11.1 12 4.73 20.92 11.1 22.08 9.47 12.58 2.69ZM19.58 11.69 12 17.27 4.42 11.69 3.25 13.31 12 20.27 20.75 13.31 19.58 11.69Z" /></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Confianza -->
+  <section class="mx-auto mt-8 max-w-lg space-y-4 px-5">
+    {config.trust.map((item) => (
+      <article class="overflow-hidden rounded-xl border border-neutral-200 bg-white">
+        {item.video && (
+          <video src={item.video} class="aspect-video w-full object-cover" autoplay muted loop playsinline />
+        )}
+        <div class="p-4">
+          <h3 class="font-bold">{item.heading}</h3>
+          <p class="mt-1 text-sm text-neutral-600">{item.text}</p>
+        </div>
+      </article>
+    ))}
+  </section>
+
+  <!-- TikTok -->
+  <section class="mx-auto mt-10 max-w-lg px-5">
+    <h2 class="mb-4 text-center text-xl font-bold leading-snug">{config.tiktok.title}</h2>
+    <div class="grid grid-cols-2 gap-3">
+      {config.tiktok.videos.map((v) => (
+        <div class="relative aspect-[9/16] overflow-hidden rounded-xl bg-black">
+          <video
+            src={v.url}
+            class="h-full w-full object-cover"
+            controls
+            playsinline
+            preload="metadata"
+            poster={v.poster}
+          />
+          {v.views && (
+            <span class="absolute left-2 top-2 rounded bg-black/60 px-2 py-0.5 text-xs text-white">{v.views}</span>
+          )}
+        </div>
+      ))}
+    </div>
+    <p class="mt-4 text-center text-sm text-neutral-600">{config.tiktok.caption}</p>
+  </section>
+
+  <!-- Social -->
+  <section class="mx-auto mt-8 max-w-lg px-5 text-center">
+    <p class="text-lg font-bold">{config.social.brand}</p>
+    <div class="mt-3 flex justify-center gap-8 text-sm">
+      <div><span class="block font-bold">{config.social.posts}</span><span class="text-neutral-500">publicaciones</span></div>
+      <div><span class="block font-bold">{config.social.followers}</span><span class="text-neutral-500">seguidores</span></div>
+      <div><span class="block font-bold">{config.social.following}</span><span class="text-neutral-500">seguidos</span></div>
+    </div>
+    <p class="mt-4 text-sm text-neutral-600">{config.social.message}</p>
+  </section>
+
+  <!-- Beneficios -->
+  <section class="mx-auto mt-8 grid max-w-lg gap-4 px-5 sm:grid-cols-2">
+    {config.benefits.map((b) => (
+      <div class="rounded-xl border border-neutral-200 bg-neutral-50 p-4">
+        <h3 class="font-bold">{b.title}</h3>
+        <p class="mt-1 text-sm text-neutral-600">{b.text}</p>
+      </div>
+    ))}
+  </section>
+
+  <!-- Testimonios -->
+  {config.testimonials.images.length > 0 && (
+    <section class="mx-auto mt-10 max-w-lg px-5">
+      <h2 class="mb-4 text-center text-xl font-bold">{config.testimonials.title}</h2>
+      <div class="flex gap-3 overflow-x-auto pb-2 snap-x">
+        {config.testimonials.images.map((src) => (
+          <img
+            src={src}
+            alt="Reseña de cliente"
+            class="h-64 w-40 shrink-0 snap-start rounded-xl object-cover"
+            loading="lazy"
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section class="mx-auto mt-10 max-w-lg px-5 pb-6">
+    <h2 class="mb-4 text-xl font-bold">{config.faq.title}</h2>
+    <div class="space-y-3">
+      {config.faq.items.map((item) => (
+        <details class="rounded-lg border border-neutral-200 bg-white">
+          <summary class="cursor-pointer px-4 py-3 font-semibold">{item.q}</summary>
+          <p class="border-t border-neutral-100 px-4 py-3 text-sm text-neutral-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+    <a
+      href={config.faq.whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-4 flex w-full items-center justify-center rounded-lg bg-green-600 px-4 py-3 font-semibold text-white"
+    >
+      {config.faq.whatsapp}
+    </a>
+  </section>
+
+  <!-- Relacionados -->
+  <section class="mx-auto max-w-lg border-t border-neutral-200 px-5 py-8">
+    <h2 class="mb-4 text-xl font-bold">{config.related.title}</h2>
+    <div class="grid grid-cols-2 gap-3">
+      {config.related.products.map((p) => (
+        <a href={p.url} class="block rounded-lg border border-neutral-200 p-2">
+          <img src={p.image} alt={p.title} class="aspect-square w-full object-contain" loading="lazy" />
+          <h3 class="mt-2 text-sm font-semibold leading-tight">{p.title}</h3>
+          <p class="text-xs text-neutral-400 line-through">{formatProductPrice(p.compareAtPrice)}</p>
+          <p class="font-bold text-[var(--landing-accent)]">{formatProductPrice(p.price)}</p>
+        </a>
+      ))}
+    </div>
+    <a
+      href={config.related.catalogUrl}
+      class="mt-4 block text-center font-semibold text-[var(--landing-accent)] underline"
+    >
+      {config.related.catalogLabel}
+    </a>
+  </section>
+
+  <footer class="border-t border-neutral-200 px-5 py-6 text-center text-sm text-neutral-500">
+    <div class="flex justify-center gap-4">
+      <a href={config.footer.termsUrl}>Términos de servicio</a>
+      <a href={config.footer.privacyUrl}>Políticas de Privacidad</a>
+    </div>
+    <p class="mt-3">{config.footer.credit}</p>
+    <a href="/admin" class="mt-2 inline-block text-xs text-neutral-400 underline">Editar landing</a>
+  </footer>
+</div>
+
+<script src="../../scripts/landing-gallery.js"></script>
+<script src="../../scripts/landing-countdown.js"></script>
+<script src="../../scripts/landing-interactions.js"></script>

@@ -1,0 +1,25 @@
+---
+import headDefault from '../partials/head-content.html?raw';
+import headCadense from '../partials/head-content-cadense.html?raw';
+import CheckoutModal from '../components/CheckoutModal.astro';
+import '../styles/buttons-black.css';
+
+interface Props {
+  head?: 'cadense';
+}
+
+const { head } = Astro.props;
+const headContent = head === 'cadense' ? headCadense : headDefault;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <Fragment set:html={headContent} />
+  </head>
+  <body>
+    <slot />
+    <CheckoutModal />
+    <script src="../scripts/checkout-modal.js"></script>
+  </body>
+</html>

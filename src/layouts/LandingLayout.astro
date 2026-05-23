@@ -1,15 +1,35 @@
 ---
-import headContent from '../partials/head-content.html?raw';
+import '../styles/global.css';
 import CheckoutModal from '../components/CheckoutModal.astro';
-import '../styles/buttons-black.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  accent?: string;
+}
+
+const { title, description = '', accent = '#ff1a47' } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
-    <Fragment set:html={headContent} />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="color-scheme" content="light only" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="theme-color" content={accent} />
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.shopify.com" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://lp.calzadoselite.co/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
   </head>
-  <body>
+  <body class="antialiased">
     <slot />
     <CheckoutModal />
     <script src="../scripts/checkout-modal.js"></script>

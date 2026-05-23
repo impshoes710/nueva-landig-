@@ -5,6 +5,7 @@ This is an Astro SSR landing page for a shoe retailer (Calzados Elite). See `REA
 ### Quick reference
 
 - **Dev server**: `npm run dev` → http://localhost:4321
+- **Content editor**: http://localhost:4321/admin (edits `src/data/lokal-big-blanco.json`)
 - **Build**: `npm run build`
 - **Preview**: `npm run preview`
 

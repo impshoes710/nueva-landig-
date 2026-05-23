@@ -1,0 +1,143 @@
+---
+import '../../styles/admin.css';
+import { loadLandingConfig } from '../../lib/landing-config';
+
+const config = await loadLandingConfig();
+const configJson = JSON.stringify(config);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Editor — Landing Lokal Big</title>
+  </head>
+  <body class="admin-body">
+    <header class="admin-header">
+      <div>
+        <h1>Editor de landing</h1>
+        <p class="admin-sub">Edita fotos, videos, textos, colores, precios y promociones. Similar a <a href="https://lp.calzadoselite.co/oferta/lokal-big-blanco" target="_blank" rel="noopener">lp.calzadoselite.co</a></p>
+      </div>
+      <div class="admin-actions">
+        <a href="/" target="_blank" class="admin-btn admin-btn--ghost">Ver landing</a>
+        <button type="button" id="btn-preview" class="admin-btn admin-btn--ghost">Vista previa</button>
+        <button type="button" id="btn-download" class="admin-btn admin-btn--ghost">Descargar JSON</button>
+        <button type="button" id="btn-save" class="admin-btn admin-btn--primary">Guardar cambios</button>
+      </div>
+    </header>
+
+    <p id="admin-status" class="admin-status" role="status"></p>
+
+    <form id="admin-form" class="admin-form">
+      <section class="admin-section">
+        <h2>General y colores</h2>
+        <div class="admin-grid">
+          <label>Título de la página<input name="meta.title" type="text" /></label>
+          <label>Descripción SEO<input name="meta.description" type="text" /></label>
+          <label>Color principal (botones, precios)<input name="theme.accent" type="color" /></label>
+          <label>Texto sobre color principal<input name="theme.accentForeground" type="color" /></label>
+          <label>Fondo de página<input name="theme.background" type="color" /></label>
+          <label>Color de texto<input name="theme.foreground" type="color" /></label>
+        </div>
+      </section>
+
+      <section class="admin-section">
+        <h2>Producto</h2>
+        <div class="admin-grid">
+          <label>Nombre del producto<input name="product.name" type="text" /></label>
+          <label>Color / variante<input name="product.colorLabel" type="text" /></label>
+          <label>Etiqueta de descuento<input name="product.discountBadge" type="text" placeholder="30% OFF" /></label>
+        </div>
+        <label>Características (una por línea)<textarea name="product.features" rows="3"></textarea>
+        <label>Imágenes de galería (una URL por línea)<textarea name="product.gallery" rows="5"></textarea>
+        <label>Tallas disponibles (separadas por coma)<input name="product.sizes" type="text" placeholder="35,36,37..." /></label>
+        <label>Colores (JSON: nombre + imagen)<textarea name="product.colorOptions" rows="6"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Promoción</h2>
+        <div class="admin-grid">
+          <label>Texto de urgencia<input name="promotion.urgencyText" type="text" /></label>
+          <label>Horas del contador<input name="promotion.countdownHours" type="number" min="1" max="168" /></label>
+          <label class="admin-check"><input name="promotion.showCountdown" type="checkbox" /> Mostrar contador</label>
+        </div>
+      </section>
+
+      <section class="admin-section">
+        <h2>Precios y paquetes (JSON)</h2>
+        <p class="admin-hint">Cada paquete: label, subtitle, comparePrice, price, quantity, percent</p>
+        <textarea name="packages" rows="10"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Videos TikTok (JSON)</h2>
+        <p class="admin-hint">Array de objetos: url, views, poster (opcional)</p>
+        <label>Título de sección<input name="tiktok.title" type="text" /></label>
+        <textarea name="tiktok.videos" rows="5"></textarea>
+        <label>Texto debajo de videos<textarea name="tiktok.caption" rows="2"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Redes sociales</h2>
+        <div class="admin-grid">
+          <label>Marca<input name="social.brand" type="text" /></label>
+          <label>Publicaciones<input name="social.posts" type="text" /></label>
+          <label>Seguidores<input name="social.followers" type="text" /></label>
+          <label>Seguidos<input name="social.following" type="text" /></label>
+        </div>
+        <label>Mensaje<textarea name="social.message" rows="2"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Videos de confianza (JSON)</h2>
+        <textarea name="trust" rows="8"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Beneficios (JSON)</h2>
+        <textarea name="benefits" rows="4"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Testimonios</h2>
+        <label>Título<input name="testimonials.title" type="text" /></label>
+        <label>Imágenes (una URL por línea)<textarea name="testimonials.images" rows="5"></textarea>
+      </section>
+
+      <section class="admin-section">
+        <h2>Preguntas frecuentes</h2>
+        <label>Título<input name="faq.title" type="text" /></label>
+        <label>Preguntas y respuestas (JSON)<textarea name="faq.items" rows="6"></textarea>
+        <div class="admin-grid">
+          <label>Texto botón WhatsApp<input name="faq.whatsapp" type="text" /></label>
+          <label>URL WhatsApp<input name="faq.whatsappUrl" type="url" /></label>
+        </div>
+      </section>
+
+      <section class="admin-section">
+        <h2>Productos relacionados</h2>
+        <label>Título<input name="related.title" type="text" /></label>
+        <label>Productos (JSON)<textarea name="related.products" rows="8"></textarea>
+        <div class="admin-grid">
+          <label>Texto enlace catálogo<input name="related.catalogLabel" type="text" /></label>
+          <label>URL catálogo<input name="related.catalogUrl" type="url" /></label>
+        </div>
+      </section>
+
+      <section class="admin-section">
+        <h2>Pie de página</h2>
+        <div class="admin-grid">
+          <label>URL términos<input name="footer.termsUrl" type="url" /></label>
+          <label>URL privacidad<input name="footer.privacyUrl" type="url" /></label>
+          <label>Crédito<input name="footer.credit" type="text" /></label>
+        </div>
+      </section>
+    </form>
+
+    <script define:vars={{ configJson }}>
+      window.__LANDING_CONFIG__ = JSON.parse(configJson);
+    </script>
+    <script src="../../scripts/admin-editor.js"></script>
+  </body>
+</html>

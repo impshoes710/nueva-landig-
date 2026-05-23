@@ -1,5 +1,5 @@
 /**
- * Interactividad de la landing: selector 1 par / 2 pares y totales.
+ * Selector de paquetes (1 par / 2 pares) y totales del resumen.
  */
 const DEFAULT_PACKAGES = [
   {
@@ -31,38 +31,32 @@ function getPackagesFromDOM() {
       key: '1',
       label: '1 par',
       quantity: 1,
-      total: root.dataset.package1Total || '$130,000',
-      compare: root.dataset.package1Compare || '$200,000',
-      discount: root.dataset.package1Discount || '$70,000',
-      percent: root.dataset.package1Percent || '35',
+      total: root.dataset.package1Total || '$119,000',
+      compare: root.dataset.package1Compare || '$210,000',
+      discount: root.dataset.package1Discount || '$91,000',
+      percent: root.dataset.package1Percent || '43',
     },
     {
       key: '2',
       label: '2 pares',
       quantity: 2,
-      total: root.dataset.package2Total || '$240,000',
-      compare: root.dataset.package2Compare || '$400,000',
-      discount: root.dataset.package2Discount || '$160,000',
-      percent: root.dataset.package2Percent || '40',
+      total: root.dataset.package2Total || '$200,000',
+      compare: root.dataset.package2Compare || '$420,000',
+      discount: root.dataset.package2Discount || '$220,000',
+      percent: root.dataset.package2Percent || '52',
     },
   ];
 }
 
 let PACKAGES = getPackagesFromDOM();
 
-const CHECK_ICON = `<div class="bg-accent flex h-5 w-5 items-center justify-center rounded-full"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check h-3 w-3 text-white" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></div>`;
-
-const CIRCLE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle text-foreground/30 h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>`;
+const CHECK_ICON = `<div class="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--landing-accent)]"><svg class="h-3 w-3 text-white" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>`;
+const CIRCLE_ICON = `<svg class="h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>`;
 
 let selectedPackageIndex = 0;
 
 function getPackageCards() {
-  const cards = [];
-  document.querySelectorAll('.cursor-pointer.overflow-hidden.rounded-lg.border').forEach((el) => {
-    const label = el.querySelector('.font-semibold.text-md')?.textContent?.trim();
-    if (label === '1 par' || label === '2 pares') cards.push(el);
-  });
-  return cards;
+  return Array.from(document.querySelectorAll('.package-card'));
 }
 
 function getIconContainer(card) {
@@ -74,42 +68,36 @@ function markPackageSelected(index) {
   if (!cards.length) return;
 
   selectedPackageIndex = index;
+  const pkg = PACKAGES[index] || PACKAGES[0];
 
   cards.forEach((card, i) => {
     const iconSlot = getIconContainer(card);
     const selected = i === index;
 
-    card.classList.toggle('border-accent', selected);
-    card.classList.toggle('bg-accent/15', selected);
-    card.classList.toggle('border-foreground/30', !selected);
-    card.classList.toggle('bg-foreground/3', !selected);
+    card.classList.toggle('border-[var(--landing-accent)]', selected);
+    card.classList.toggle('bg-[var(--landing-accent)]/15', selected);
+    card.classList.toggle('border-neutral-300', !selected);
+    card.classList.toggle('bg-neutral-50', !selected);
 
     if (iconSlot) {
       iconSlot.innerHTML = selected ? CHECK_ICON : CIRCLE_ICON;
     }
   });
 
-  updateCartSummary(PACKAGES[index] || PACKAGES[0]);
-  window.dispatchEvent(
-    new CustomEvent('package:change', { detail: PACKAGES[index] || PACKAGES[0] })
-  );
+  updateCartSummary(pkg);
+  window.dispatchEvent(new CustomEvent('package:change', { detail: pkg }));
 }
 
 function updateCartSummary(pkg) {
-  const rows = document.querySelectorAll('.gutter-md .space-y-3.pb-4 .flex.items-center.justify-between');
-  rows.forEach((row) => {
-    const label = row.querySelector('p')?.textContent?.trim();
-    const valueEl = row.querySelector('.font-semibold');
-    if (!valueEl) return;
-    if (label === 'Subtotal') valueEl.textContent = pkg.compare;
-    if (label === 'Descuento') valueEl.textContent = '-' + pkg.discount;
-  });
+  const subtotal = document.getElementById('summary-subtotal');
+  const discount = document.getElementById('summary-discount');
+  const total = document.getElementById('summary-total');
+  const percent = document.getElementById('summary-percent');
 
-  const percentBadge = document.querySelector('.gutter-md .bg-accent.rounded-md');
-  if (percentBadge) percentBadge.textContent = pkg.percent + '%';
-
-  const totalEl = document.querySelector('.gutter-md .text-lg.font-bold');
-  if (totalEl) totalEl.textContent = pkg.total;
+  if (subtotal) subtotal.textContent = pkg.compare;
+  if (discount) discount.textContent = '-' + pkg.discount;
+  if (total) total.textContent = pkg.total;
+  if (percent) percent.textContent = pkg.percent + '%';
 
   const checkoutTotal = document.getElementById('checkout-modal-total');
   const checkoutSubmitTotal = document.getElementById('checkout-submit-total');
@@ -121,11 +109,6 @@ function initPackagePicker() {
   PACKAGES = getPackagesFromDOM();
   const cards = getPackageCards();
   if (!cards.length) return;
-
-  let initialIndex = cards.findIndex((card) =>
-    card.classList.contains('border-accent')
-  );
-  if (initialIndex < 0) initialIndex = 0;
 
   cards.forEach((card, index) => {
     card.setAttribute('role', 'button');
@@ -139,7 +122,7 @@ function initPackagePicker() {
     });
   });
 
-  markPackageSelected(initialIndex);
+  markPackageSelected(0);
 }
 
 export function getSelectedPackage() {
@@ -147,7 +130,7 @@ export function getSelectedPackage() {
 }
 
 export function getProductName() {
-  return document.getElementById('landing-root')?.dataset.productName || 'Cadense';
+  return document.getElementById('landing-root')?.dataset.productName || 'Lokal Big';
 }
 
 if (document.readyState === 'loading') {
